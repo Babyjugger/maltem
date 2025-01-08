@@ -23,7 +23,7 @@ def menu(config):
             continue
 
         if choice == 't':
-            account.transaction(config)
+            account.transactions_input()
         elif choice == 'i':
             rule.rule(config)
         elif choice == 'p':
@@ -37,7 +37,7 @@ if __name__ == "__main__":
     with open(os.path.dirname(os.path.realpath(__file__)) + '/config.yaml') as f:
         config = yaml.load(f, Loader=yaml.FullLoader)
 
-    account = account.Account()
+    account = account.Account(config["settings"])
 
     print(f"Welcome to {config["settings"]["bank_name"]}! What would you like to do?")
     menu(config["settings"])

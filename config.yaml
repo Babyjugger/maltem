@@ -14,6 +14,8 @@ settings:
   balance_col: Balance
   rule_col: RuleId
   rate_col: Rate (%)
+  transaction_input: Please enter transaction details in <Date> <Account> <Type> <Amount> format
+  empty_input: (or enter blank to go back to main menu)
 
 postgresql:
   database: localhost
