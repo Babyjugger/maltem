@@ -1,0 +1,24 @@
+settings:
+  bank_name: AwesomeGIC Bank
+  production: False
+  menu_transaction: Input transactions
+  menu_rules: Define interest rules
+  menu_statement: Print statement
+  menu_quit: Quit
+  account_title: Account
+  interest_rule_title: Interest rules
+  date_col: Date
+  tansaction_col: Txn Id
+  type_col: Type
+  amount_col: Amount
+  balance_col: Balance
+  rule_col: RuleId
+  rate_col: Rate (%)
+
+postgresql:
+  database: localhost
+  user: admin
+  password: admin
+  host: xxx.ap-southeast-1.rds.amazonaws.com
+  port: 5432
+  sslmode: require

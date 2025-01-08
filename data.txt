@@ -1,0 +1,2 @@
+account_id, date, transaction_code, type, amount, balance
+AC001, 20230505, 20230505-01, D, 100.00, 100.00
