@@ -60,8 +60,8 @@ class Account:
                                 axis="columns", inplace=True)
 
         print(f"{self.config['account_title']}: {account}")
-        print(account_balances[[self.config["date_col"], self.config["tansaction_col"], self.config["type_col"], self.config["amount_col"]]])
-
+        print(account_balances[[self.config["date_col"], self.config["tansaction_col"], self.config["type_col"], self.config["amount_col"]]] )
+        print("")
 
     def validate_transactions_input(self, response):
         response_list = response.split()
@@ -109,4 +109,5 @@ class Account:
                 else:
                     # Perform insert logic
                     self.clean_transaction(*response.split())
+                    print(self.df)
                     break

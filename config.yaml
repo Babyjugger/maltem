@@ -5,6 +5,7 @@ settings:
   menu_rules: Define interest rules
   menu_statement: Print statement
   menu_quit: Quit
+  menu_continue: Is there anything else you'd like to do?
   account_title: Account
   interest_rule_title: Interest rules
   date_col: Date
@@ -15,6 +16,7 @@ settings:
   rule_col: RuleId
   rate_col: Rate (%)
   transaction_input: Please enter transaction details in <Date> <Account> <Type> <Amount> format
+  rule_input: Please enter interest rules details in <Date> <RuleId> <Rate in %> format
   empty_input: (or enter blank to go back to main menu)
 
 postgresql:

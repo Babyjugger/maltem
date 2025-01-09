@@ -24,10 +24,13 @@ def menu(config):
 
         if choice == 't':
             account.transactions_input()
+            print(f"{config["menu_continue"]}")
         elif choice == 'i':
-            rule.rule(config)
+            rule.interest_input()
+            print(f"{config["menu_continue"]}")
         elif choice == 'p':
             account.statement(config)
+            print(f"{config["menu_continue"]}")
         else:
             print(f"Thank you for banking with {config["bank_name"]}. \nHave a nice day!")
             break
@@ -38,6 +41,7 @@ if __name__ == "__main__":
         config = yaml.load(f, Loader=yaml.FullLoader)
 
     account = account.Account(config["settings"])
+    rule = rule.Rule(config["settings"])
 
     print(f"Welcome to {config["settings"]["bank_name"]}! What would you like to do?")
     menu(config["settings"])

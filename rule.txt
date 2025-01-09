@@ -1,2 +1,3 @@
 date, rule_id, rate
 20230101, RULE01, 1.95
+20230520, RULE02, 1.90
