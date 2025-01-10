@@ -10,6 +10,14 @@ def validate_date_format(date_string):
         # If parsing fails, the format is invalid
         return False
 
+def validate_month_format(date_string):
+    try:
+        # Attempt to parse the date string
+        datetime.strptime(date_string, '%Y%m')
+        return True
+    except ValueError:
+        # If parsing fails, the format is invalid
+        return False
 
 def validate_amount(amount_string):
     # Regular expression to match a positive number with up to 2 decimal places

@@ -6,16 +6,18 @@ from datetime import datetime
 class Rule:
     def __init__(self, config):
         filename = "rule.txt"
+        pd.options.display.float_format = "{:,.2f}".format
         self.df = pd.read_csv(filename, delimiter=',', encoding="utf-8", skipinitialspace=True)
         self.config = config
 
     def clean_rule(self, date, rule, rate):
         # Filter transactions for the same account_id and date
-        filtered_df = self.df[(self.df["date"] == date)]
-        # Determine the latest running number
-        if not filtered_df.empty:
+        print(self.df)
+        existing_rule = self.df[(self.df["date"] == int(date))]
+
+        if not existing_rule.empty:
             # Replace the existing rule
-            self.df.loc[self.df["date"] == date, ["rule_id", "rate"]] = [rule, rate]
+            self.df.loc[self.df["date"] == int(date), ["rule_id", "rate"]] = [rule, float(rate)]
         else:
             # Create the new row
             new_rule = {
@@ -28,7 +30,7 @@ class Rule:
 
         # Sort the DataFrame by date and rule_id for consistency
         self.df = self.df.sort_values(by=["date", "rule_id"]).reset_index(drop=True)
-        rule_df = self.df
+        rule_df = self.df.copy()
         rule_df.rename({"date": self.config["date_col"], "rule_id": self.config["rule_col"],
                                  "rate": self.config["rate_col"]},
                                 axis="columns", inplace=True)

@@ -2,6 +2,7 @@ import os
 import rule
 import yaml
 import account
+import compute_transaction
 
 # Menu
 def menu(config):
@@ -29,7 +30,7 @@ def menu(config):
             rule.interest_input()
             print(f"{config["menu_continue"]}")
         elif choice == 'p':
-            account.statement(config)
+            compute_transaction.print_input(account, rule)
             print(f"{config["menu_continue"]}")
         else:
             print(f"Thank you for banking with {config["bank_name"]}. \nHave a nice day!")
@@ -42,6 +43,7 @@ if __name__ == "__main__":
 
     account = account.Account(config["settings"])
     rule = rule.Rule(config["settings"])
+    compute_transaction = compute_transaction.ComputeTransaction(config["settings"])
 
     print(f"Welcome to {config["settings"]["bank_name"]}! What would you like to do?")
     menu(config["settings"])

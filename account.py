@@ -6,6 +6,7 @@ from datetime import datetime
 class Account:
     def __init__(self, config):
         filename = "data.txt"
+        pd.options.display.float_format = "{:,.2f}".format
         self.df = pd.read_csv(filename, delimiter=',', encoding="utf-8", skipinitialspace=True)
         self.config = config
 
@@ -109,5 +110,4 @@ class Account:
                 else:
                     # Perform insert logic
                     self.clean_transaction(*response.split())
-                    print(self.df)
                     break

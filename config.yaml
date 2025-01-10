@@ -17,6 +17,7 @@ settings:
   rate_col: Rate (%)
   transaction_input: Please enter transaction details in <Date> <Account> <Type> <Amount> format
   rule_input: Please enter interest rules details in <Date> <RuleId> <Rate in %> format
+  print_input: Please enter account and month to generate the statement <Account> <Year><Month>
   empty_input: (or enter blank to go back to main menu)
 
 postgresql:
