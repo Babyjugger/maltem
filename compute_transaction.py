@@ -161,7 +161,6 @@ class ComputeTransaction:
             last_date = txn_date
 
         # Apply interest for the remaining period in the month
-        # interest_accumulated += self._apply_interest_for_gap(self.account_df["date"].max(), datetime.strptime(month_end, '%Y%m%d'), last_balance)
         interest_accumulated += self._apply_interest_for_gap(last_date - timedelta(days=1), datetime.strptime(month_end, '%Y%m%d'), last_balance)
 
         # Add interest row if applicable
@@ -218,15 +217,6 @@ class ComputeTransaction:
 
         # Process transactions for the filtered data
         return self._compute_transactions_with_interest(month_end)
-
-        # results = []
-        # for account_id, account_data in self.account_df.groupby("account_id"):
-        #     account_data = account_data.sort_values("date").reset_index(drop=True)
-        #     results.extend(self._process_account_transactions(account_data, month))
-        #
-        #
-        # # Combine results into a DataFrame
-        # return pd.DataFrame(results)
 
 
     def print_input(self, account, rule):

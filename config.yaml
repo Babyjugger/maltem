@@ -1,4 +1,5 @@
 settings:
+  test_enabled: True
   bank_name: AwesomeGIC Bank
   production: False
   menu_transaction: Input transactions

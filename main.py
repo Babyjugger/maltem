@@ -1,11 +1,13 @@
 import os
-import rule
 import yaml
-import account
-import compute_transaction
+
+from account import Account
+from compute_transaction import ComputeTransaction
+from rule import Rule
 
 # Menu
-def menu(config):
+def main(config, account, rule, compute_transaction):
+
     while True:
         print(f"[T] {config['menu_transaction']}")
         print(f"[I] {config['menu_rules']}")
@@ -41,9 +43,10 @@ if __name__ == "__main__":
     with open(os.path.dirname(os.path.realpath(__file__)) + '/config.yaml') as f:
         config = yaml.load(f, Loader=yaml.FullLoader)
 
-    account = account.Account(config["settings"])
-    rule = rule.Rule(config["settings"])
-    compute_transaction = compute_transaction.ComputeTransaction(config["settings"])
+    config = config["settings"]
+    account = Account(config)
+    rule = Rule(config)
+    compute_transaction = ComputeTransaction(config)
 
-    print(f"Welcome to {config["settings"]["bank_name"]}! What would you like to do?")
-    menu(config["settings"])
+    print(f"Welcome to {config["bank_name"]}! What would you like to do?")
+    main(config, account, rule, compute_transaction)

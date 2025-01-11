@@ -4,11 +4,18 @@ from helper import validate_date_format, validate_amount
 from datetime import datetime
 
 class Account:
-    def __init__(self, config):
-        filename = "data.txt"
-        pd.options.display.float_format = "{:,.2f}".format
-        self.df = pd.read_csv(filename, delimiter=',', encoding="utf-8", skipinitialspace=True)
+    def __init__(self, config, test_enabled=False):
+
+        self.df = None
         self.config = config
+
+        if not test_enabled:
+            filename = "/data.txt"
+            pd.options.display.float_format = "{:,.2f}".format
+            self.df = pd.read_csv(os.path.dirname(os.path.realpath(__file__)) + filename, delimiter=',', encoding="utf-8", skipinitialspace=True)
+
+        if self.df is None:
+            self.df = pd.DataFrame(columns=['account_id', 'date', 'transaction_code', 'type', 'amount', 'balance'])
 
     def compute_balance(self, account):
         account_balances = self.df.sort_values(by=["transaction_code"])
@@ -27,7 +34,8 @@ class Account:
 
     def clean_transaction(self, date, account, type, amount):
         # Filter transactions for the same account_id and date
-        filtered_df = self.df[(self.df["account_id"] == account) & (self.df["date"] == date)]
+        self.df["date"] = pd.to_numeric(self.df["date"], downcast='integer', errors='coerce')
+        filtered_df = self.df[(self.df["account_id"] == account) & (self.df["date"] == int(date))]
         # Determine the latest running number
         if not filtered_df.empty:
             latest_transaction_code = filtered_df["transaction_code"].max()
@@ -55,7 +63,7 @@ class Account:
         # Recompute the account's balance
         self.compute_balance(account)
 
-        account_balances = self.df[self.df["account_id"] == account]
+        account_balances = self.df[self.df["account_id"] == account].copy()
         account_balances.rename({"date": self.config["date_col"], "transaction_code": self.config["tansaction_col"],
                                  "type": self.config["type_col"], "amount": self.config["amount_col"]},
                                 axis="columns", inplace=True)
@@ -86,13 +94,18 @@ class Account:
                 return False
 
             # Find the latest transaction_code for given account_id
-            latest_transactions_balance = self.df[self.df["account_id"] == account].sort_values(by=["transaction_code"]).iloc[-1]
+            if account in self.df['account_id'].values:
+                latest_transactions_balance = self.df[self.df["account_id"] == account].sort_values(by=["transaction_code"]).iloc[-1]
 
-            if type == 'w':
-                new_balance = latest_transactions_balance["balance"] - float(amount)
-                if new_balance < 0:
-                    print("You cannot withdraw more than your current balance.")
-                    return False
+                if not latest_transactions_balance.empty:
+                    if type == 'w':
+                        new_balance = latest_transactions_balance["balance"] - float(amount)
+                        if new_balance < 0:
+                            print("You cannot withdraw more than your current balance.")
+                            return False
+            else:
+                if type == 'w':
+                    print("You cannot withdraw before you have a balance.")
 
             return True
 

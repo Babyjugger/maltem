@@ -5,9 +5,9 @@ from datetime import datetime
 
 class Rule:
     def __init__(self, config):
-        filename = "rule.txt"
+        filename = "/rule.txt"
         pd.options.display.float_format = "{:,.2f}".format
-        self.df = pd.read_csv(filename, delimiter=',', encoding="utf-8", skipinitialspace=True)
+        self.df = pd.read_csv(os.path.dirname(os.path.realpath(__file__)) + filename, delimiter=',', encoding="utf-8", skipinitialspace=True)
         self.config = config
 
     def clean_rule(self, date, rule, rate):
